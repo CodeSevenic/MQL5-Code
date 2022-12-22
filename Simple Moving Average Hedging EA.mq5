@@ -139,4 +139,8 @@ int MA_Init(int pMAPeriod, int pMAShift, ENUM_MA_METHOD pMAMethod, ENUM_APPLIED_
       return -1;
       Print("There was an error creating the MA Indicator Handle", GetLastError());
    }
+
+   Print("MA Indicator handle initialized successfully");
+
+   return Handle;
 }
