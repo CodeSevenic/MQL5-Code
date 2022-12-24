@@ -171,4 +171,6 @@ double ma(int pMAHandle, int pShift) {
 
    //We normalize the ma value to our symbol's digits and return it
    maValue = NormalizeDouble(maValue,_Digits);
+
+   return maValue;
 }
