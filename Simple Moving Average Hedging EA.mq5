@@ -50,6 +50,10 @@ int OnInit()
    glTimeBarOpen = D'1971.01.01 00:00';
 
    MAHandle = MA_Init(MAPeriod, MAShift, MAMethod, MAPrice);
+   
+   if(MAHandle) {
+      return(INIT_FAILED);
+   }
    return (INIT_SUCCEEDED);
 }
 
