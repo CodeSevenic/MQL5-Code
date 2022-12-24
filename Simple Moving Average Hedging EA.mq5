@@ -53,6 +53,7 @@ int OnInit()
 
    if(MAHandle) {
       return(INIT_FAILED);
+      Print("OnInit Fuction Stopped!");
    }
    return (INIT_SUCCEEDED);
 }
