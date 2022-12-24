@@ -50,7 +50,7 @@ int OnInit()
    glTimeBarOpen = D'1971.01.01 00:00';
 
    MAHandle = MA_Init(MAPeriod, MAShift, MAMethod, MAPrice);
-   
+
    if(MAHandle) {
       return(INIT_FAILED);
    }
@@ -151,4 +151,11 @@ int MA_Init(int pMAPeriod, int pMAShift, ENUM_MA_METHOD pMAMethod, ENUM_APPLIED_
    Print("MA Indicator handle initialized successfully");
 
    return Handle;
+}
+
+double ma(int pMSHandle, int pShift) {
+   ResetLastError();
+
+   // We create and fill an array with MA values
+   
 }
