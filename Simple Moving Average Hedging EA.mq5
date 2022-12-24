@@ -40,6 +40,7 @@ input ushort TSLFixedPoints = 0;
 input ushort BEFixedPoints = 0;
 
 datetime glTimeBarOpen;
+int MAHandle;
 
 //+------------------------------------------------------------------+
 //| Event Handlers                                                   |
@@ -47,6 +48,8 @@ datetime glTimeBarOpen;
 int OnInit()
 {
    glTimeBarOpen = D'1971.01.01 00:00';
+
+   MAHandle = MA_Init(MAPeriod, MAShift, MAMethod, MAPrice);
    return (INIT_SUCCEEDED);
 }
 
