@@ -161,7 +161,7 @@ double ma(int pMAHandle, int pShift) {
    ArraySetAsSeries(ma, true);
 
    //We fill the array with the 3 most recent ma values
-   bool fillResult = CopyBuffer(pMAHandle, 0,0 , ma);
+   bool fillResult = CopyBuffer(pMAHandle, 0, 0 , 3, ma);
    if(fillResult == false) {
       Print("FILL_ERROR", GetLastError());
    }
