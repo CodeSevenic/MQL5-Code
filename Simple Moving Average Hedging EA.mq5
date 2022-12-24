@@ -95,6 +95,9 @@ void OnTick()
       double tickSize = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_SIZE);
       double closeTickSize = round(close / tickSize) * tickSize;
 
+      //Moving average
+      double ma1 = ma(MAHandle, 1);
+
       //---------------------------//
       //  TRADE EXIT
       //---------------------------//
