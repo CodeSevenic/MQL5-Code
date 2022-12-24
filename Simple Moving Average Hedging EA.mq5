@@ -165,4 +165,10 @@ double ma(int pMAHandle, int pShift) {
    if(fillResult == false) {
       Print("FILL_ERROR", GetLastError());
    }
+
+   // We ask for the ma values stored in the pShift
+   double maValue = ma[pShift];
+
+   //We normalize the ma value to our symbol's digits and return it
+   
 }
