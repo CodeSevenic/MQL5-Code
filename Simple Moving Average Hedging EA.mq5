@@ -52,6 +52,7 @@ int OnInit()
 
 void OnDeinit(const int reason)
 {
+   Print("Expert removed");
 }
 
 void OnTick()
