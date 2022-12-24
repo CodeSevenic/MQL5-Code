@@ -97,6 +97,7 @@ void OnTick()
 
       //Moving average
       double ma1 = ma(MAHandle, 1);
+      Print("MA Value for bar 1: ", DoubleToString(ma1,_Digits));
 
       //---------------------------//
       //  TRADE EXIT
