@@ -153,9 +153,16 @@ int MA_Init(int pMAPeriod, int pMAShift, ENUM_MA_METHOD pMAMethod, ENUM_APPLIED_
    return Handle;
 }
 
-double ma(int pMSHandle, int pShift) {
+double ma(int pMAHandle, int pShift) {
    ResetLastError();
 
    // We create and fill an array with MA values
-   
+   double ma[];
+   ArraySetAsSeries(ma, true);
+
+   //We fill the array with the 3 most recent ma values
+   bool fillResult = CopyBuffer(pMAHandle, 0,0 , ma);
+   if(fillResult == false) {
+      Print("FILL_ERROR", GetLastError());
+   }
 }
