@@ -343,22 +343,51 @@ ulong OpenTrades(string pEntrySignal, ulong pMagicNumber, double pFixedVol)
 // Request and Result Declaration and Initialization
    MqlTradeRequest request = {};
    MqlTradeResult result = {};
-   
-   if (pEntrySignal == "LONG")
-   {
-   // Request Parameters 
-   
-   // Request Send
-   
-   // Request Information
-   
-   } 
-   else if (pEntrySignal == "SHORT") {
-   // Request Parameters 
-   
-   // Request Send
-   
-   // Request Information
-   }
+
+   if(pEntrySignal == "LONG")
+     {
+
+      // Request Parameters
+      request.action = TRADE_ACTION_DEAL;
+      request.symbol = _Symbol;
+      request.volume = pFixedVol;
+      request.type = ORDER_TYPE_BUY;
+      request.price = askPrice;
+      request.deviation = 10;
+      request.magic = MagicNumber;
+      request.comment = comment;
+
+      if(UseFillingPolicy == true)
+         request.type_filling = FillingPolicy;
+
+
+      if(!OrderSend(request, result))
+         // If request was not sent, print error code
+         Print("OrderSend trade placement error: ", GetLastError());
+
+
+      //Trade Information
+      Print("Open ", request.symbol," LONG"," order #",result.order,": ",result.retcode,", Volume: ",result.volume,", Price: ",DoubleToString(request.price,_Digits));
+
+     }
+   else
+      if(pEntrySignal == "SHORT")
+        {
+         // Request Parameters
+
+         // Request Send
+
+         // Request Information
+        }
+
+   if()
+     {
+      return request.order;
+     }
+   else
+     {
+      return 0;
+     }
+
   }
 //+------------------------------------------------------------------+
