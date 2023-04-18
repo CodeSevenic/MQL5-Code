@@ -39,6 +39,9 @@ input ushort TPFixedPoints = 0;
 input ushort TSLFixedPoints = 0;
 input ushort BEFixedPoints = 0;
 
+input bool UseFillingPolicy = false;
+input ENUM_ORDER_TYPE_FILLING FillingPolicy = ORDER_FILLING_FOK;
+
 datetime glTimeBarOpen;
 int MAHandle;
 
