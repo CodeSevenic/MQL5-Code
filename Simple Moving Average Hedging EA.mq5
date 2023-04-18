@@ -126,7 +126,7 @@ void OnTick()
       //---------------------------//
       string entrySignal = MA_EntrySignal(close1, close2, ma1, ma2);
 
-      if(entrySignal == "LONG" || entrySignal == "SHORT")
+      if((entrySignal == "LONG" || entrySignal == "SHORT") && CheckPlacedPositions(MagicNumber) == false)
         {
          ulong ticket = OpenTrades(entrySignal, MagicNumber, FixedVolume);
         }
@@ -428,9 +428,9 @@ bool CheckPlacedPositions(ulong pMagic)
          placedPositions = true;
          break;
         }
-        
+
      }
-     
-     return placedPositions;
+
+   return placedPositions;
   }
 //+------------------------------------------------------------------+
