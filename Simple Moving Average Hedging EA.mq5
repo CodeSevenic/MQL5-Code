@@ -400,7 +400,7 @@ ulong OpenTrades(string pEntrySignal, ulong pMagicNumber, double pFixedVol)
 
         }
 
-   if(result.retcode == TRADE_RETCODE_DONE || result.retcode == TRADE_RETCODE_DONE_PARTIAL )
+   if(result.retcode == TRADE_RETCODE_DONE || result.retcode == TRADE_RETCODE_DONE_PARTIAL || result.retcode == TRADE_RETCODE_NO_CHANGES)
      {
       return request.order;
      }
