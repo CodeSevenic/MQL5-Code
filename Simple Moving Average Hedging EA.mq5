@@ -354,7 +354,7 @@ ulong OpenTrades(string pEntrySignal, ulong pMagicNumber, double pFixedVol)
       request.type = ORDER_TYPE_BUY;
       request.price = askPrice;
       request.deviation = 10;
-      request.magic = MagicNumber;
+      request.magic = pMagicNumber;
       request.comment = comment;
 
       if(UseFillingPolicy == true)
