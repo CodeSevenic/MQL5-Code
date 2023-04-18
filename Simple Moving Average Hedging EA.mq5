@@ -45,22 +45,21 @@ int MAHandle;
 //+------------------------------------------------------------------+
 //| Event Handlers                                                   |
 //+------------------------------------------------------------------+
-int OnInit()
-{
+int OnInit(){
    glTimeBarOpen = D'1971.01.01 00:00';
 
    MAHandle = MA_Init(MAPeriod, MAShift, MAMethod, MAPrice);
 
-   if(MAHandle) {
-      return(INIT_FAILED);
+   if(MAHandle == -1) {
       Print("OnInit Fuction Stopped!");
+      return(INIT_FAILED);
    }
    return (INIT_SUCCEEDED);
 }
 
 void OnDeinit(const int reason)
 {
-   Print("Expert removed");
+   Print("Expert removed!");
 }
 
 void OnTick()
@@ -71,43 +70,53 @@ void OnTick()
    bool newBar = false;
 
    // Check for new bar
-   if (glTimeBarOpen != iTime(_Symbol,PERIOD_CURRENT, 0))
-   {
+   if (glTimeBarOpen != iTime(_Symbol,PERIOD_CURRENT, 0)){
       newBar = true;
       glTimeBarOpen = iTime(_Symbol, PERIOD_CURRENT, 0);
    };
 
-   if (newBar == true)
-   {
+   if (newBar == true){
       //---------------------------//
       //  PRICE & INDICATORS
       //---------------------------//
 
       // Price
-      double close = Close(1);
-      double open = Open(1);
+      double close1 = Close(1);
+      double close2 = Close(2);
 
-      Print("The Open Price is: ", open);
-
-      // Normalization of close price to digits
-      close = NormalizeDouble(close, _Digits);
 
       // Normalization of close price to tick size
       double tickSize = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_SIZE);
-      double closeTickSize = round(close / tickSize) * tickSize;
+      close1 = round(close1/tickSize) * tickSize;
+      close2 = round(close2/tickSize) * tickSize;
 
       //Moving average
       double ma1 = ma(MAHandle, 1);
-      Print("MA Value for bar 1: ", DoubleToString(ma1,_Digits));
+      double ma2 = ma(MAHandle, 2);
 
       //---------------------------//
       //  TRADE EXIT
       //---------------------------//
+      
+      // Exit Signal & Close Trades Execution
+      string exitSignal = MA_ExitSignal(close1, close2, ma1, ma2);
+
+      if(exitSignal == "EXIT_LONG" || exitSignal == "EXIT_SHORT") {
+
+      }
+
+      Sleep(1000);
 
       //---------------------------//
-      //  PRICE & INDICATORS
+      //  TRADE PLACEMENT
       //---------------------------//
+      string entrySignal = MA_EntrySignal(close1, close2, ma1, ma2);
 
+      if(entrySignal == "LONG") {
+         Print("Long Trade Placed");
+      } else if (entrySignal == "SHORT"){
+         Print("Short Trade Placed");
+      }
       //---------------------------//
       //  PRICE & INDICATORS
       //---------------------------//
@@ -146,7 +155,7 @@ int MA_Init(int pMAPeriod, int pMAShift, ENUM_MA_METHOD pMAMethod, ENUM_APPLIED_
    ResetLastError();
 
    // A unique identifier for the indicator. Used for all actions related to the indicator, such as copying data and removing the indicator
-   int Handle = iMA(_Symbol, PERIOD_CURRENT,pMAPeriod,pMAShift,pMAMethod, pMAPrice);
+   int Handle = iMA(_Symbol, PERIOD_CURRENT,pMAPeriod,pMAShift,pMAMethod,pMAPrice);
 
    if (Handle == INVALID_HANDLE) {
       return -1;
@@ -178,4 +187,88 @@ double ma(int pMAHandle, int pShift) {
    maValue = NormalizeDouble(maValue,_Digits);
 
    return maValue;
+}
+
+//MA Entry Signal Function
+string MA_EntrySignal(double pPrice1,double pPrice2, double pMA1, double pMA2) {
+   string str = "";
+   string indicatorValues;
+
+   if(pPrice1 > pMA1 && pPrice2 <= pMA2) {
+      str = "LONG";
+   } else if (pPrice1 < pMA1 && pPrice2 >= pMA2) {
+      str = "SHORT";
+   } else {
+      str = "NO_TRADE";
+   }
+
+   StringConcatenate(indicatorValues,"MA 1: ", DoubleToString(pMA1,_Digits)," | ","MA 2: ", DoubleToString(pMA2,_Digits)," | ","Close 1: ", DoubleToString(pPrice1,_Digits)," | ","Close 2: ", DoubleToString(pPrice2,_Digits));
+
+   Print("Indicator Values: ", indicatorValues);
+
+   return str;
+}
+
+//MA Exit Signal Function
+string MA_ExitSignal(double pPrice1,double pPrice2, double pMA1, double pMA2) {
+   string str = "";
+   string indicatorValues;
+   // When LONG position detected, exit SHORT position
+   if(pPrice1 > pMA1 && pPrice2 <= pMA2) {
+      str = "EXIT_SHORT";
+   // When SHORT position detected, exit LONG position
+   } else if (pPrice1 < pMA1 && pPrice2 >= pMA2) {
+      str = "EXIT_LONG";
+   } else {
+      str = "NO_EXIT";
+   }
+
+   StringConcatenate(indicatorValues,"MA 1: ", DoubleToString(pMA1,_Digits)," | ","MA 2: ", DoubleToString(pMA2,_Digits)," | ","Close 1: ", DoubleToString(pPrice1,_Digits)," | ","Close 2: ", DoubleToString(pPrice2,_Digits));
+
+   Print("Indicator Values: ", indicatorValues);
+
+   return str;
+}
+
+
+//+------------+// Bollinger Bands Functions //+-------------+//
+
+int BB_Init(int pBBPeriod, int pBBShift, double pBBDeviation, ENUM_APPLIED_PRICE pBBPrice){
+   // In case of error when initializing the Bollinger Bands, GetLastError() will get the error code and store it in _lastError
+   // ResetLastError will change _lastError variable to 0
+   ResetLastError();
+
+   // A unique identifier for the indicator. Used for all actions related to the indicator, such as copying data and removing the indicator
+   int Handle = iBands(_Symbol, PERIOD_CURRENT,pBBPeriod,pBBShift, pBBDeviation,pBBPrice);
+
+   if (Handle == INVALID_HANDLE) {
+      return -1;
+      Print("There was an error creating the Bollinger Bands Indicator Handle", GetLastError());
+   }
+
+   Print("Bollinger Bands Indicator handle initialized successfully");
+
+   return Handle;
+}
+
+double BB(int pBBHandle, int pBBLineBuffer, int pShift) {
+   ResetLastError();
+
+   // We create and fill an array with Bollinger Bands values
+   double BB[];
+   ArraySetAsSeries(BB, true);
+
+   //We fill the array with the 3 most recent ma values
+   bool fillResult = CopyBuffer(pBBHandle, pBBLineBuffer, 0 , 3, BB);
+   if(fillResult == false) {
+      Print("FILL_ERROR", GetLastError());
+   }
+
+   // We ask for the ma values stored in the pShift
+   double BBValue = BB[pShift];
+
+   //We normalize the ma value to our symbol's digits and return it
+   BBValue = NormalizeDouble(BBValue,_Digits);
+
+   return BBValue;
 }
