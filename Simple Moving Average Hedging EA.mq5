@@ -414,5 +414,12 @@ ulong OpenTrades(string pEntrySignal, ulong pMagicNumber, double pFixedVol)
 //+------------+// Check Placed Positions Functions //+-------------+//
 bool CheckPlacedPositions(ulong pMagic) 
 {
+   bool placedPositions = false;
+   
+   for(int i = PositionsTotal() - 1; i >= 0; i--)
+   {
+      ulong positionTicket = PositionGetTicket(i);
+      PositionSelectByTicket(positionTicket);
+   }
 }
 //+------------------------------------------------------------------+
