@@ -128,7 +128,7 @@ void OnTick()
 
       if(entrySignal == "LONG" || entrySignal == "SHORT")
         {
-         Print("Long Trade Placed");
+         ulong ticket = OpenTrades(entrySignal, MagicNumber, FixedVolume);
         }
       //---------------------------//
       //  PRICE & INDICATORS
@@ -410,4 +410,9 @@ ulong OpenTrades(string pEntrySignal, ulong pMagicNumber, double pFixedVol)
      }
 
   }
+
+//+------------+// Check Placed Positions Functions //+-------------+//
+bool CheckPlacedPositions(ulong pMagic) 
+{
+}
 //+------------------------------------------------------------------+
