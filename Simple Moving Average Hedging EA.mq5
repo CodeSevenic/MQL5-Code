@@ -420,6 +420,12 @@ bool CheckPlacedPositions(ulong pMagic)
    {
       ulong positionTicket = PositionGetTicket(i);
       PositionSelectByTicket(positionTicket);
+      
+      ulong posMagic = PositionGetInteger(POSITION_MAGIC);
+      
+      if(posMagic == pMagic) {
+      placedPositions = true;
+      }
    }
 }
 //+------------------------------------------------------------------+
