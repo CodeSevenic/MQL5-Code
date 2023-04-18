@@ -338,10 +338,27 @@ ulong OpenTrades(string pEntrySignal, ulong pMagicNumber, double pFixedVol)
    askPrice = round(askPrice/tickSize) * tickSize;
    bidPrice = round(bidPrice/tickSize) * tickSize;
 
-   string comment = pEntrySignal + " | " + _Symbol + " | " + string(MagicNumber);
+   string comment = pEntrySignal + " | " + _Symbol + " | " + string(pMagicNumber);
 
 // Request and Result Declaration and Initialization
    MqlTradeRequest request = {};
    MqlTradeResult result = {};
+   
+   if (pEntrySignal == "LONG")
+   {
+   // Request Parameters 
+   
+   // Request Send
+   
+   // Request Information
+   
+   } 
+   else if (pEntrySignal == "SHORT") {
+   // Request Parameters 
+   
+   // Request Send
+   
+   // Request Information
+   }
   }
 //+------------------------------------------------------------------+
