@@ -374,13 +374,30 @@ ulong OpenTrades(string pEntrySignal, ulong pMagicNumber, double pFixedVol)
       if(pEntrySignal == "SHORT")
         {
          // Request Parameters
+         request.action       = TRADE_ACTION_DEAL;
+         request.symbol       = _Symbol;
+         request.volume       = pFixedVol;
+         request.type         = ORDER_TYPE_BUY;
+         request.price        = bidPrice;
+         request.deviation    = 10;
+         request.magic        = pMagicNumber;
+         request.comment      = comment;
 
-         // Request Send
+         if(UseFillingPolicy == true)
+            request.type_filling = FillingPolicy;
 
-         // Request Information
+
+         if(!OrderSend(request, result))
+            // If request was not sent, print error code
+            Print("OrderSend trade placement error: ", GetLastError());
+
+
+         //Trade Information
+         Print("Open ", request.symbol," ",pEntrySignal," order #",result.order,": ",result.retcode,", Volume: ",result.volume,", Price: ",DoubleToString(request.price,_Digits));
+
         }
 
-   if()
+   if(result.retcode == TRADE_RETCODE_DONE || result.retcode == TRADE_RETCODE_DONE_PARTIAL )
      {
       return request.order;
      }
