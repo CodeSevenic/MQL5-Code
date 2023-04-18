@@ -342,20 +342,20 @@ ulong OpenTrades(string pEntrySignal, ulong pMagicNumber, double pFixedVol)
 
 // Request and Result Declaration and Initialization
    MqlTradeRequest request = {};
-   MqlTradeResult result = {};
+   MqlTradeResult result   = {};
 
    if(pEntrySignal == "LONG")
      {
 
       // Request Parameters
-      request.action = TRADE_ACTION_DEAL;
-      request.symbol = _Symbol;
-      request.volume = pFixedVol;
-      request.type = ORDER_TYPE_BUY;
-      request.price = askPrice;
-      request.deviation = 10;
-      request.magic = pMagicNumber;
-      request.comment = comment;
+      request.action       = TRADE_ACTION_DEAL;
+      request.symbol       = _Symbol;
+      request.volume       = pFixedVol;
+      request.type         = ORDER_TYPE_BUY;
+      request.price        = askPrice;
+      request.deviation    = 10;
+      request.magic        = pMagicNumber;
+      request.comment      = comment;
 
       if(UseFillingPolicy == true)
          request.type_filling = FillingPolicy;
@@ -367,7 +367,7 @@ ulong OpenTrades(string pEntrySignal, ulong pMagicNumber, double pFixedVol)
 
 
       //Trade Information
-      Print("Open ", request.symbol," LONG"," order #",result.order,": ",result.retcode,", Volume: ",result.volume,", Price: ",DoubleToString(request.price,_Digits));
+      Print("Open ", request.symbol," ",pEntrySignal," order #",result.order,": ",result.retcode,", Volume: ",result.volume,", Price: ",DoubleToString(request.price,_Digits));
 
      }
    else
