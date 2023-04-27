@@ -521,15 +521,24 @@ double CalculateStopLoss(string pEntrySignal, int pSLFixedPoints, int pSLFixedPo
 
    if(pEntrySignal == "LONG")
      {
-
+      if(pSLFixedPoints > 0)
+        {
+         stopLoss = bidPrice - (pSLFixedPoints * _Point));
+        }
+      else
+         if(pSLFixedPointsMA > 0)
+           {
+            stopLoss = pMA - (pSLFixedPointsMA * _Point);
+           }
      }
    else
       if(pEntrySignal == "SHORT")
         {
 
         }
-        
+
    stopLoss = round(stopLoss/tickSize);
+   return stopLoss;
   }
 
 //+------------------------------------------------------------------+
