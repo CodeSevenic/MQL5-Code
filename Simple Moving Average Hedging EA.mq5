@@ -457,7 +457,9 @@ void CloseTrades(ulong pMagic, string pExitSignal)
 
       if(posMagic == pMagic && pExitSignal == "EXIT_LONG" && posType == ORDER_TYPE_BUY)
         {
-
+            request.action = TRADE_ACTION_DEAL;
+            request.type = ORDER_TYPE_SELL;
+            request.symbol = _Symbol;
         }
       else
          if(posMagic == pMagic && pExitSignal == "EXIT_SHORT" && posType == ORDER_TYPE_SELL)
