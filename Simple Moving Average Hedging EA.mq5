@@ -447,13 +447,23 @@ void CloseTrades(ulong pMagic, string pExitSignal)
       //Reset of request and result values
       ZeroMemory(request);
       ZeroMemory(result);
-      
+
       // Select postiton by ticket
       ulong positionTicket = PositionGetTicket(i);
       PositionSelectByTicket(positionTicket);
-      
+
       ulong posMagic = PositionGetInteger(POSITION_MAGIC);
       ulong posType = PositionGetInteger(POSITION_TYPE);
+
+      if(posMagic == pMagic && pExitSignal == "EXIT_LONG" && posType == ORDER_TYPE_BUY)
+        {
+
+        }
+      else
+         if(posMagic == pMagic && pExitSignal == "EXIT_SHORT" && posType == ORDER_TYPE_SELL)
+           {
+
+           }
      }
   }
 //+------------------------------------------------------------------+
