@@ -436,15 +436,20 @@ bool CheckPlacedPositions(ulong pMagic)
    return placedPositions;
   }
 //+------------+// Check Placed Positions Functions //+-------------+//
-void CloseTrades(ulong pMagic, string pExitSignal) 
-{
-   // Request and Result Declaration and Initialization
+void CloseTrades(ulong pMagic, string pExitSignal)
+  {
+// Request and Result Declaration and Initialization
    MqlTradeRequest request = {};
-   MqlTradeResult result   = {}; 
-   
-   for(int i = PositionsTotal() - 1; i >= 0; i--) 
-   {
-         //
-   }
-}
+   MqlTradeResult result   = {};
+
+   for(int i = PositionsTotal() - 1; i >= 0; i--)
+     {
+      //Reset of request and result values
+      ZeroMemory(request);
+      ZeroMemory(result);
+      
+      ulong positionTicket = PositionGetTicket(i);
+      PositionSelectByTicket(positionTicket);
+     }
+  }
 //+------------------------------------------------------------------+
