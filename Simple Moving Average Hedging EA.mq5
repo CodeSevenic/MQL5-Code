@@ -127,6 +127,7 @@ void OnTick()
 
       // Entry Signal & Order Placement Execution
       string entrySignal = MA_EntrySignal(close1, close2, ma1, ma2);
+      Comment("EA #", MagicNumber, " | ", exitSignal, " | ",entrySignal, " SIGNALS DETECTED");
 
       if((entrySignal == "LONG" || entrySignal == "SHORT") && CheckPlacedPositions(MagicNumber) == false)
         {
