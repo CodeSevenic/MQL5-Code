@@ -124,7 +124,7 @@ void OnTick()
       //---------------------------//
       //  TRADE PLACEMENT
       //---------------------------//
-      
+
       // Entry Signal & Order Placement Execution
       string entrySignal = MA_EntrySignal(close1, close2, ma1, ma2);
 
