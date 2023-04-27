@@ -132,6 +132,13 @@ void OnTick()
       if((entrySignal == "LONG" || entrySignal == "SHORT") && CheckPlacedPositions(MagicNumber) == false)
         {
          ulong ticket = OpenTrades(entrySignal, MagicNumber, FixedVolume);
+
+         //SL & TP Trade Modification
+         if(ticket > 0)
+           {
+
+           }
+
         }
       //---------------------------//
       //  PRICE & INDICATORS
