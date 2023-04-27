@@ -448,6 +448,9 @@ bool CheckPlacedPositions(ulong pMagic)
    return placedPositions;
   }
 
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
 void CloseTrades(ulong pMagic, string pExitSignal)
   {
 // Request and Result Declaration and Initialization
@@ -502,9 +505,31 @@ void CloseTrades(ulong pMagic, string pExitSignal)
            }
      }
   }
-  
-  
-  //+------------+// Position Management Functions //+-------------+//
-  
-  
+
+
+//+------------+// Position Management Functions //+-------------+//
+
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+double CalculateStopLoss(string pEntrySignal, int pSLFixedPoints, int pSLFixedPointsMA, double pMA)
+  {
+   double stopLoss = 0.0;
+   double askPrice = SymbolInfoDouble(_Symbol, SYMBOL_ASK);
+   double bidPrice = SymbolInfoDouble(_Symbol, SYMBOL_BID);
+   double tickSize = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_SIZE);
+
+   if(pEntrySignal == "LONG")
+     {
+
+     }
+   else
+      if(pEntrySignal == "SHORT")
+        {
+
+        }
+        
+   stopLoss = round(stopLoss/tickSize);
+  }
+
 //+------------------------------------------------------------------+
