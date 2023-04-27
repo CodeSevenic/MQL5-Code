@@ -116,7 +116,7 @@ void OnTick()
 
       if(exitSignal == "EXIT_LONG" || exitSignal == "EXIT_SHORT")
         {
-
+         CloseTrades(MagicNumber, exitSignal);
         }
 
       Sleep(1000);
