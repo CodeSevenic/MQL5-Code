@@ -447,7 +447,7 @@ bool CheckPlacedPositions(ulong pMagic)
 
    return placedPositions;
   }
-//+------------+// Check Placed Positions Functions //+-------------+//
+
 void CloseTrades(ulong pMagic, string pExitSignal)
   {
 // Request and Result Declaration and Initialization
@@ -502,4 +502,9 @@ void CloseTrades(ulong pMagic, string pExitSignal)
            }
      }
   }
+  
+  
+  //+------------+// Position Management Functions //+-------------+//
+  
+  
 //+------------------------------------------------------------------+
