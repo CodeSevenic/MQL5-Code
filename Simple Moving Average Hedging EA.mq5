@@ -457,13 +457,19 @@ void CloseTrades(ulong pMagic, string pExitSignal)
 
       if(posMagic == pMagic && pExitSignal == "EXIT_LONG" && posType == ORDER_TYPE_BUY)
         {
-            request.action = TRADE_ACTION_DEAL;
-            request.type = ORDER_TYPE_SELL;
-            request.symbol = _Symbol;
-            request.position = positionTicket;
-            request.volume = PositionGetDouble(POSITION_VOLUME);
-            request.price = SymbolInfoDouble(_Symbol, SYMBOL_BID);
-            request.deviation = 10;
+         request.action = TRADE_ACTION_DEAL;
+         request.type = ORDER_TYPE_SELL;
+         request.symbol = _Symbol;
+         request.position = positionTicket;
+         request.volume = PositionGetDouble(POSITION_VOLUME);
+         request.price = SymbolInfoDouble(_Symbol, SYMBOL_BID);
+         request.deviation = 10;
+
+         bool sent = OrderSend(request, result);
+         if(sent == true)
+           {
+            Print("Position #",positionTicket," closed");
+           }
         }
       else
          if(posMagic == pMagic && pExitSignal == "EXIT_SHORT" && posType == ORDER_TYPE_SELL)
