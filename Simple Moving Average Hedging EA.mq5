@@ -448,8 +448,12 @@ void CloseTrades(ulong pMagic, string pExitSignal)
       ZeroMemory(request);
       ZeroMemory(result);
       
+      // Select postiton by ticket
       ulong positionTicket = PositionGetTicket(i);
       PositionSelectByTicket(positionTicket);
+      
+      ulong posMagic = PositionGetInteger(POSITION_MAGIC);
+      ulong posType = PositionGetInteger(POSITION_TYPE);
      }
   }
 //+------------------------------------------------------------------+
