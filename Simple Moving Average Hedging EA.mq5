@@ -453,6 +453,7 @@ void TradeModification(ulong ticket, ulong pMagic, double pSLPrice, double pTPPr
       if(!sent)
         {
          Print("OrderSend Modification error: ", GetLastError());
+         Sleep(3000);
         }
      }
   }
