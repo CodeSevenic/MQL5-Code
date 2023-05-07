@@ -442,7 +442,7 @@ void TradeModification(ulong ticket, ulong pMagic, double pSLPrice, double pTPPr
    request.symbol = _Symbol;
    request.sl = round(pSLPrice/ticketSize) * ticketSize;
    request.tp = round(pTPPrice/ticketSize) * ticketSize;
-   
+   request.comment = "MOD."+ " | " + _Symbol + " | " + string(pMagic) + ", SL: " + DoubleToString(request.sl, _Digits) + ", TP: " + DoubleToString(request.tp, _Digits);
   }
 
 
