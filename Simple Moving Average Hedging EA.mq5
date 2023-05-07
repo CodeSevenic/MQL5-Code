@@ -433,16 +433,26 @@ ulong OpenTrades(string pEntrySignal, ulong pMagicNumber, double pFixedVol)
 void TradeModification(ulong ticket, ulong pMagic, double pSLPrice, double pTPPrice)
   {
    double ticketSize = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_SIZE);
-   
+
    MqlTradeRequest request = {};
    MqlTradeResult result = {};
-   
+
    request.action = TRADE_ACTION_SLTP;
    request.position = ticket;
    request.symbol = _Symbol;
    request.sl = round(pSLPrice/ticketSize) * ticketSize;
    request.tp = round(pTPPrice/ticketSize) * ticketSize;
    request.comment = "MOD."+ " | " + _Symbol + " | " + string(pMagic) + ", SL: " + DoubleToString(request.sl, _Digits) + ", TP: " + DoubleToString(request.tp, _Digits);
+   
+   if(request.sl > 0 || request.tp > 0) {
+      Sleep(1000);
+      bool sent = OrderSend(request, result);
+      Print(result.comment);
+      
+      if(!sent) {
+      
+      }
+   }
   }
 
 
