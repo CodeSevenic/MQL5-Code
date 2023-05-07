@@ -441,6 +441,7 @@ void TradeModification(ulong ticket, ulong pMagic, double pSLPrice, double pTPPr
    request.position = ticket;
    request.symbol = _Symbol;
    request.sl = round(pSLPrice/ticketSize) * ticketSize;
+   request.tp = round(pTPPrice/ticketSize) * ticketSize;
    
   }
 
