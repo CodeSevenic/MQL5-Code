@@ -138,6 +138,7 @@ void OnTick()
            {
             double stopLoss = CalculateStopLoss(entrySignal, SLFixedPoints, SLFixedPointsMA, ma1);
             double takeProfit = CalculateTakeProfit(entrySignal, TPFixedPoints);
+            TradeModification(ticket, MagicNumber,stopLoss, takeProfit);
            }
 
         }
