@@ -592,7 +592,12 @@ void TrailingStopLoss(ulong pMagic, pTSLFixedPoints ) {
    MqlTradeResult result   = {};
    
    for(int i = PositionsTotal() - 1; i >=0; i--) {
-      //Reset 
+      //Request and Result Declaration and Initialization
+      ZeroMemory(request);
+      ZeroMemory(result);
+      
+      ulong positionTicket = PositionGetTicket(i);
+      PositionSelectByTicket(positionTicket);
    }
 }
 
