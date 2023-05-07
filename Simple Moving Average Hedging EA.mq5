@@ -435,8 +435,9 @@ void TradeModification(ulong ticket, ulong pMagic, double pSLPrice, double pTPPr
    double ticketSize = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_SIZE);
    
    MqlTradeRequest request = {};
-   MqlTradeResult request = {};
+   MqlTradeResult result = {};
    
+   request.action = TRADE_ACTION_SLTP;
    
   }
 
