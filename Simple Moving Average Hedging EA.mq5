@@ -136,7 +136,8 @@ void OnTick()
          //SL & TP Trade Modification
          if(ticket > 0)
            {
-
+            double stopLoss = CalculateStopLoss(entrySignal, SLFixedPoints, SLFixedPointsMA, ma1);
+            double takeProfit = CalculateTakeProfit(entrySignal, TPFixedPoints);
            }
 
         }
@@ -424,8 +425,14 @@ ulong OpenTrades(string pEntrySignal, ulong pMagicNumber, double pFixedVol)
      }
 
   }
+  
+  
+void TradeModification(ulong ticket, ulong pMagic, double pSLPrice, double pTPPrice) 
+{
+ double ticketSize = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_SIZE);
+}
 
-//+------------+// Check Placed Positions Functions //+-------------+//
+
 bool CheckPlacedPositions(ulong pMagic)
   {
    bool placedPositions = false;
@@ -523,7 +530,7 @@ double CalculateStopLoss(string pEntrySignal, int pSLFixedPoints, int pSLFixedPo
      {
       if(pSLFixedPoints > 0)
         {
-         stopLoss = bidPrice - (pSLFixedPoints * _Point));
+         stopLoss = bidPrice - (pSLFixedPoints * _Point);
         }
       else
          if(pSLFixedPointsMA > 0)
@@ -534,11 +541,50 @@ double CalculateStopLoss(string pEntrySignal, int pSLFixedPoints, int pSLFixedPo
    else
       if(pEntrySignal == "SHORT")
         {
-
+         if(pSLFixedPoints > 0)
+           {
+            stopLoss = askPrice + (pSLFixedPoints * _Point);
+           }
+         else
+            if(pSLFixedPointsMA > 0)
+              {
+               stopLoss = pMA + (pSLFixedPointsMA * _Point);
+              }
         }
 
-   stopLoss = round(stopLoss/tickSize);
+   stopLoss = round(stopLoss/tickSize) * tickSize;
    return stopLoss;
+  }
+
+
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+double CalculateTakeProfit(string pEntrySignal, int pTPFixedPoints)
+  {
+   double takeProfit = 0.0;
+   double askPrice = SymbolInfoDouble(_Symbol, SYMBOL_ASK);
+   double bidPrice = SymbolInfoDouble(_Symbol, SYMBOL_BID);
+   double tickSize = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_SIZE);
+
+   if(pEntrySignal == "LONG")
+     {
+      if(pTPFixedPoints > 0)
+        {
+         takeProfit = bidPrice + (pTPFixedPoints * _Point);
+        }
+     }
+   else
+      if(pEntrySignal == "SHORT")
+        {
+         if(pTPFixedPoints > 0)
+           {
+            takeProfit = askPrice - (pTPFixedPoints * _Point);
+           }
+        }
+
+   takeProfit = round(takeProfit/tickSize) * tickSize;
+   return takeProfit;
   }
 
 //+------------------------------------------------------------------+
