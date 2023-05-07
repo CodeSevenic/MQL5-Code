@@ -438,6 +438,7 @@ void TradeModification(ulong ticket, ulong pMagic, double pSLPrice, double pTPPr
    MqlTradeResult result = {};
    
    request.action = TRADE_ACTION_SLTP;
+   request.position = ticket;
    
   }
 
