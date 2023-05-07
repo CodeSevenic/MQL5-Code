@@ -433,8 +433,11 @@ ulong OpenTrades(string pEntrySignal, ulong pMagicNumber, double pFixedVol)
 void TradeModification(ulong ticket, ulong pMagic, double pSLPrice, double pTPPrice)
   {
    double ticketSize = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_SIZE);
-
-
+   
+   MqlTradeRequest request = {};
+   MqlTradeResult request = {};
+   
+   
   }
 
 
